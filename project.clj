@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.3"]
                  [org.clojure/tools.cli "1.0.206"]
                  [clj-http "3.12.3"]
+                 [cheshire "5.10.0"]
                 ]
   :main ^:skip-aot conversor-moedas.core
   :target-path "target/%s"
