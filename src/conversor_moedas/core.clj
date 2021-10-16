@@ -1,8 +1,7 @@
 (ns conversor-moedas.core
   (:require [clojure.tools.cli :refer [parse-opts]]
-            [clj-http.client :as http-client]
-            [cheshire.core :refer [parse-string]]
             [conversor-moedas.formatador-de-exibicao :refer [formatar]]
+            [conversor-moedas.cambista :refer [obter-cotacao]]
   )
   (:gen-class))
 
@@ -10,31 +9,6 @@
   [["-d" "--de moeda base" "moeda base para conversão" :default "usd"]
    ["-p" "--para moeda destino" "moeda a qual queremos saber o valor"]
   ]
-)
-
-(def chave (System/getenv "CHAVE_API"))
-
-(def api-url "https://free.currencyconverterapi.com/api/v6/convert")
-
-(defn parametrizar-moedas [de para]
-  (str de "_" para)
-)
-
-(defn obter-cotacao [de para]
-  (let [moedas (parametrizar-moedas de para)]
-    (->
-      (:body 
-        (http-client/get api-url {:query-params {"q" "USD_BRL"
-                                                  "apiKey" chave
-                                                }
-                                  }
-        )
-      )
-
-      (parse-string)
-      (get-in ["results" moedas "val"])
-    )
-  )
 )
 
 (defn- interpretar-opcoes [argumentos]
