@@ -2,6 +2,7 @@
   (:require [clojure.tools.cli :refer [parse-opts]]
             [clj-http.client :as http-client]
             [cheshire.core :refer [parse-string]]
+            [conversor-moedas.formatador-de-exibicao :refer [formatar]]
   )
   (:gen-class))
 
@@ -34,10 +35,6 @@
       (get-in ["results" moedas "val"])
     )
   )
-)
-
-(defn- formatar [cotacao de para]
-  (str "1 " de " equivale a " cotacao " em " para)
 )
 
 (defn- interpretar-opcoes [argumentos]
