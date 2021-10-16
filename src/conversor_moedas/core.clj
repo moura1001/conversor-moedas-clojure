@@ -40,9 +40,13 @@
   (str "1 " de " equivale a " cotacao " em " para)
 )
 
+(defn- interpretar-opcoes [argumentos]
+  (:options (parse-opts argumentos opcoes-do-programa))
+)
+
 (defn -main
   [& args]
-  (let [{:keys [de para]} (:options (parse-opts args opcoes-do-programa))]
+  (let [{de :de para :para} (interpretar-opcoes args)]
     
     (->
       (obter-cotacao de para)
